@@ -1,0 +1,37 @@
+name: Run on namespace-profile-macos
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Run job on macOS namespace profile
+    runs-on: namespace-profile-macos
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Print system info
+        run: |
+          echo "Running on: $(uname -a)"
+          echo "Current user: $(whoami)"
+          echo "Working directory: $(pwd)"
+
+      - name: Example build step
+        run: |
+          echo "This job is executing on runner with label 'namespace-profile-macos'."
+
+  random_text:
+    name: Generate random text every 5 seconds
+    runs-on: namespace-profile-macos
+    steps:
+      - name: Repeated random text generator
+        run: |
+          echo "Starting random text generator..."
+          for i in {1..10}; do
+            RANDOM_TEXT=$(openssl rand -hex 8)
+            echo "[$(date '+%H:%M:%S')] Random text: $RANDOM_TEXT"
+            sleep 5
+          done
+          echo "Completed 10 cycles of random text generation."
